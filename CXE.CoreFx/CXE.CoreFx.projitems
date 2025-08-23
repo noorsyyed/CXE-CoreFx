@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>948fc72f-26f1-412d-bdea-0aff8f67b306</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>CXE.CoreFx</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ConsoleLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\Enums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extentions\EntityExtention.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extentions\EntityReferenceExtention.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extentions\GuidExtention.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extentions\ObjectExtention.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extentions\StringExtention.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModelControllerBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataverseColumnAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataverseTableAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoggerBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AccountModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ActivityModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ActivityPartyModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ContactModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\EmailModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\EmailTemplateModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\EnvironmentVariableDefinitionModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\IncidentModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\IncidentResolutionModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\LeadModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\OpportunityModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\QueueItemModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\QueueModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\QuoteModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SecurityRoleModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SecurityRoleProfileModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SubjectModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SystemUserModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SystemUserSettingModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\TeamMembershipModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\TeamModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\TimeZoneDefinitionModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StringHelper.cs" />
+  </ItemGroup>
+</Project>

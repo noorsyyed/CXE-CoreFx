@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>432f867d-2dca-489f-bdbc-73cfc1137a20</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>CXE.CoreFx.Plugin</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CustomActionBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataverseHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageNames.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PluginBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Stages.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TraceLogger.cs" />
+  </ItemGroup>
+</Project>

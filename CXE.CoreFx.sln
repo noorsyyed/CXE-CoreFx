@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Git Scripts", "Git Scripts", "{B7E16ABD-D07B-4662-942C-E2C3BBD2FBF7}"
+	ProjectSection(SolutionItems) = preProject
+		Git Scripts\update submodule.bat = Git Scripts\update submodule.bat
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{83631F66-9D9F-402C-ACC3-A9CFEE08CC49}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JS Templates", "JS Templates", "{68F693C4-8854-43F0-9203-27B7E0B18DEB}"
+	ProjectSection(SolutionItems) = preProject
+		JS Templates\clmbus.cxe.common.js = JS Templates\clmbus.cxe.common.js
+		JS Templates\logicalName.form.js = JS Templates\logicalName.form.js
+		JS Templates\logicalName.schema.js = JS Templates\logicalName.schema.js
+		JS Templates\logicalName.view.js = JS Templates\logicalName.view.js
+	EndProjectSection
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CXE.CoreFx.Base", "CXE.CoreFx\CXE.CoreFx.shproj", "{948FC72F-26F1-412D-BDEA-0AFF8F67B306}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CXE.CoreFx.Plugin", "CXE.CoreFx.Plugin\CXE.CoreFx.Plugin.shproj", "{24DDFDD6-06DB-4991-AE2C-5C78AC68B98C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|arm64 = Debug|arm64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|arm64 = Release|arm64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D34F7556-690A-4A2A-8239-8D9C28B5BB4E}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		CXE.CoreFx.Plugin\CXE.CoreFx.Plugin.projitems*{24ddfdd6-06db-4991-ae2c-5c78ac68b98c}*SharedItemsImports = 13
+		CXE.CoreFx.Base\CXE.CoreFx.Base.projitems*{948fc72f-26f1-412d-bdea-0aff8f67b306}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(CRMSolutionProperties) = preSolution
+		SolutionIsBoundToCRM = True
+	EndGlobalSection
+EndGlobal

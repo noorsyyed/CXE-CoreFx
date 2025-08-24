@@ -50,7 +50,13 @@ namespace CXE.CoreFx.Base.Enums
 	}
 
 
-
+	public enum AmountMethod
+	{
+		MultiplyQuantityByPrice = 192350000,
+		FixedPrice = 192350001,
+		MultiplyBasisQuantityByPrice = 192350002,
+		MultiplyBasisAmountByPercent = 192350003
+	}
 
 
 }

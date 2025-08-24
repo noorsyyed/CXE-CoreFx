@@ -1,7 +1,6 @@
 
 
 using System;
-using Microsoft.Xrm.Sdk;
 
 namespace CXE.CoreFx.Base.Models
 {
@@ -17,5 +16,7 @@ namespace CXE.CoreFx.Base.Models
 			get => GetValue<Guid>();
 			set => SetValue(value);
 		}
+
+
 	}
 }

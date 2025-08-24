@@ -188,7 +188,7 @@ Below is a step-by-step guide how to use this toolbox in your project.
     ```
 
 
-    # Plugins Usage Guide
+    
 
 
 ---

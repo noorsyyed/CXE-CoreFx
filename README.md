@@ -270,7 +270,7 @@ Below is a step-by-step guide how to use this toolbox in your project.
         StageEnum.PostOperation,
         ExecutionModeEnum.Asynchronous,
         '',
-        'Swift.D365.Dataverse.Plugins.Asset - Asset Create PostAync - Create Delivery WorkOrder',
+        '<CompanyName>.D365.Dataverse.Plugins.Asset - Asset Create PostAync - Create Delivery WorkOrder',
         1,
         IsolationModeEnum.Sandbox
     )]

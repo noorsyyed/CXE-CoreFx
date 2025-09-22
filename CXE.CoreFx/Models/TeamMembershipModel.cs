@@ -1,11 +1,10 @@
-
 using System;
 using Microsoft.Xrm.Sdk;
 
 namespace CXE.CoreFx.Base.Models
 {
 	[DataverseTable("teammembership")]
-	public class TeamMembershipModel : EntityBase
+	public partial class TeamMembershipModel : EntityBase
 	{
 		public TeamMembershipModel() : base("teammembership") { }
 		public TeamMembershipModel(Guid id) : base("teammembership", id) { }
@@ -17,4 +16,4 @@ namespace CXE.CoreFx.Base.Models
 			set => SetValue(value);
 		}
 	}
-}
+}}

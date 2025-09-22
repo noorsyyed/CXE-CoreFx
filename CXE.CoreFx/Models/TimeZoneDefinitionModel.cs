@@ -6,7 +6,7 @@ using Microsoft.Xrm.Sdk;
 namespace CXE.CoreFx.Base.Models
 {
 	[DataverseTable("timezonedefinition")]
-	public class TimeZoneDefinitionModel : EntityBase
+	public partial class TimeZoneDefinitionModel : EntityBase
 	{
 		public TimeZoneDefinitionModel() : base("timezonedefinition") { }
 		public TimeZoneDefinitionModel(Guid id) : base("timezonedefinition", id) { }

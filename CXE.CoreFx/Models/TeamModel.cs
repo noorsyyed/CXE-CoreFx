@@ -5,7 +5,7 @@ using Microsoft.Xrm.Sdk;
 namespace CXE.CoreFx.Base.Models
 {
 	[DataverseTable("team")]
-	public class TeamModel : EntityBase
+	public partial class TeamModel : EntityBase
 	{
 		public TeamModel() : base("team") { }
 		public TeamModel(Guid id) : base("team", id) { }

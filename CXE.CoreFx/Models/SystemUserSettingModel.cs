@@ -4,7 +4,7 @@ using Microsoft.Xrm.Sdk;
 namespace CXE.CoreFx.Base.Models
 {
 	[DataverseTable("usersettings")]
-	public class SystemUserSettingModel : EntityBase
+	public partial class SystemUserSettingModel : EntityBase
 	{
 		public SystemUserSettingModel() : base("usersettings") { }
 		public SystemUserSettingModel(Guid id) : base("usersettings", id) { }

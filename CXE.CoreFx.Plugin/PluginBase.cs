@@ -3,14 +3,8 @@ using System.Runtime.CompilerServices;
 using CXE.CoreFx.Plugin.Enums;
 using Microsoft.Xrm.Sdk;
 
-// ============================================================================
-// ============================================================================
-// ============================================================================
 namespace CXE.CoreFx.Plugin
 {
-	// ============================================================================
-	// ============================================================================
-	// ============================================================================
 	/// <summary>
 	/// When inheriting from this class you need to override at least one of the following methods:
 	/// - Execute()
@@ -27,7 +21,6 @@ namespace CXE.CoreFx.Plugin
 		private string _defaultErrorMessage = string.Empty;
 		private string _customErrorMessage = string.Empty;
 
-		// ============================================================================
 		public void Execute(
 			IServiceProvider serviceProvider)
 		{
@@ -36,7 +29,6 @@ namespace CXE.CoreFx.Plugin
 
 			bool _isError = false;
 
-			// -----------------------------------------------------
 			try
 			{
 				Execute();
@@ -92,6 +84,11 @@ namespace CXE.CoreFx.Plugin
 					case MessageNames.SetState:
 						switch (Context.Stage)
 						{
+							case Stages.PreValidation:
+								InitializeController();
+								OnUpdatePreValidation();
+								break;
+
 							case Stages.PreOperation:
 								InitializeController();
 								OnSetStatePreOperation();
@@ -119,8 +116,6 @@ namespace CXE.CoreFx.Plugin
 
 				}
 			}
-
-			// -----------------------------------------------------
 			catch (InvalidPluginExecutionException ex)
 			{
 				string message = string.Empty;
@@ -178,8 +173,6 @@ namespace CXE.CoreFx.Plugin
 						ex);
 				}
 			}
-
-			// -----------------------------------------------------
 			finally
 			{
 				Helper.Logger.ResetIndent();
@@ -197,7 +190,6 @@ namespace CXE.CoreFx.Plugin
 			}
 		}
 
-		// ============================================================================
 		/// <summary>
 		/// Override this function. All basic error handling and setup is already taken care of.
 		/// You can access Context, ServiceClient, Logger and many more...
@@ -211,6 +203,10 @@ namespace CXE.CoreFx.Plugin
 			// this function is supposed to be overwritten
 		}
 		public virtual void OnCreatePostOperation()
+		{
+			// this function is supposed to be overwritten
+		}
+		public virtual void OnUpdatePreValidation()
 		{
 			// this function is supposed to be overwritten
 		}
@@ -254,80 +250,71 @@ namespace CXE.CoreFx.Plugin
 		{
 			// this function is supposed to be overwritten
 		}
+		public Entity PreImageEntity
+		{
+			get
+			{
+				return this.Context.PreEntityImages.TryGetValue("PreImage", out Entity preImage) ? preImage : null;
+			}
+		}
+		public Entity PostImageEntity
+		{
+			get
+			{
+				return this.Context.PostEntityImages.TryGetValue("PostImage", out Entity postImage) ? postImage : null;
+			}
+		}
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected DataverseHelper Helper
 		{
 			get; private set;
 		}
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-		protected IPluginExecutionContext Context => Helper.Context;
+		protected IPluginExecutionContext2 Context => Helper.Context;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// The service-object to connect with Dataverse.
 		/// </summary>
 		protected virtual IOrganizationService ServiceClient => Helper.ServiceClient;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected TraceLogger Logger => Helper.Logger;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected bool IgnoreExceptions { get; set; } = false;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected bool IsCreate => Helper.IsCreate;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected bool IsUpdate => Helper.IsUpdate;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected bool IsDelete => Helper.IsDelete;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected bool IsSetState => Helper.IsSetState;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected bool IsAssign => Helper.IsAssign;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected bool IsAssociate => Helper.IsAssociate;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected bool IsDisassociate => Helper.IsDisassociate;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected bool IsStagePreOperation => Helper.IsStagePreOperation;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected bool IsStagePostOperation => Helper.IsStagePostOperation;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected bool IsStageCoreOperation => Helper.IsStageCoreOperation;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected bool IsStagePreValidation => Helper.IsStagePreValidation;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected bool HasTargetEntity => Helper.HasTargetEntity;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected Entity TargetEntity => Helper.TargetEntity;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected bool HasTargetEntityReference => Helper.HasTargetEntityReference;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected EntityReference TargetEntityReference => Helper.TargetEntityReference;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected Entity FirstPreImage => Helper.FirstPreImage;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		protected Entity FirstPostImage => Helper.FirstPostImage;
 
-		// ============================================================================
 		/// <summary>
 		/// Sets the defaul error message.
 		/// </summary>
@@ -338,7 +325,6 @@ namespace CXE.CoreFx.Plugin
 			_defaultErrorMessage = defaultErrorMessage;
 		}
 
-		// ============================================================================
 		/// <summary>
 		/// Removes the defaul error message.
 		/// </summary>
@@ -347,7 +333,6 @@ namespace CXE.CoreFx.Plugin
 			_defaultErrorMessage = string.Empty;
 		}
 
-		// ============================================================================
 		/// <summary>
 		/// Throws a new exception with the given message. This overrides the possibly 
 		/// set default error message.
@@ -360,7 +345,6 @@ namespace CXE.CoreFx.Plugin
 			throw new InvalidPluginExecutionException(errorMessage);
 		}
 
-		// ============================================================================
 		protected void Log(
 			string comment)
 		{
@@ -368,14 +352,12 @@ namespace CXE.CoreFx.Plugin
 				comment);
 		}
 
-		// ============================================================================
 		protected void EnterFunction(
 			[CallerMemberName] string functionName = "")
 		{
 			Helper.Logger.EnterFunction(functionName);
 		}
 
-		// ============================================================================
 		protected void EnterFunction(
 			string functionName,
 			string attribute)
@@ -383,7 +365,6 @@ namespace CXE.CoreFx.Plugin
 			Helper.Logger.EnterFunction(functionName, attribute);
 		}
 
-		// ============================================================================
 		protected void ExitFunction(
 			string comment = "")
 		{

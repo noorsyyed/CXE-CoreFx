@@ -16,7 +16,5 @@ namespace CXE.CoreFx.Base.Models
 			get => GetValue<Guid>();
 			set => SetValue(value);
 		}
-
-
 	}
 }

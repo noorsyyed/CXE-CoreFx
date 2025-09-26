@@ -87,7 +87,7 @@ namespace CXE.CoreFx.Generators
 			sb.AppendLine("    {");
 			foreach (var p in properties.OrderBy(p => p.Name))
 			{
-				var logical = p.IsReference ? $"_{p.Logical?.ToLowerInvariant()}_value" : p.Logical;
+				var logical = p.IsReference ? $"_{p.Logical?.ToLowerInvariant()}_value" : (p.Logical ?? "");
 				sb.Append("        public const string ").Append(p.Name).Append(" = \"").Append(logical).AppendLine("\";");
 			}
 			sb.AppendLine("    }");

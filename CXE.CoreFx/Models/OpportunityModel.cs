@@ -1,7 +1,6 @@
 
 
 using System;
-using Microsoft.Xrm.Sdk;
 
 namespace CXE.CoreFx.Base.Models
 {

@@ -3,39 +3,24 @@ using CXE.CoreFx.Plugin.Enums;
 using CXE.CoreFx.Base;
 using Microsoft.Xrm.Sdk;
 
-
-// ============================================================================
-// ============================================================================
-// ============================================================================
 namespace CXE.CoreFx.Plugin
 {
-
-	// ============================================================================
-	// ============================================================================
-	// ============================================================================
 	public class TraceLogger : LoggerBase
 	{
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		private readonly ITracingService _tracingService;
 
-
-		// ============================================================================
 		public TraceLogger(
 			ITracingService tracingService)
 		{
 			_tracingService = tracingService;
 		}
 
-
-		// ============================================================================
 		protected override void WriteLogLine(
 			string line)
 		{
 			_tracingService.Trace(line);
 		}
 
-
-		// ============================================================================
 		public string GetStageName(
 			int stagecode)
 		{
@@ -49,8 +34,6 @@ namespace CXE.CoreFx.Plugin
 			};
 		}
 
-
-		// ============================================================================
 		public void LogContextInformation(
 			IPluginExecutionContext context)
 		{
@@ -67,7 +50,6 @@ namespace CXE.CoreFx.Plugin
 				WriteLogLine("Entity:      n/a");
 			}
 
-
 			if (context.InputParameters.Contains("Target"))
 			{
 				WriteLogLine("Target Type: " + context.InputParameters["Target"].ToString().Split('.').Last<string>());
@@ -77,12 +59,7 @@ namespace CXE.CoreFx.Plugin
 				WriteLogLine("Target Type: n/a");
 			}
 
-
 			WriteLogLine("//////////////////////////////////////////");
 		}
-
-
 	}
-
-
 }

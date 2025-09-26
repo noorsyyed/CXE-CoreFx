@@ -4,47 +4,27 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-
-
-
-// ============================================================================
-// ============================================================================
-// ============================================================================
 namespace CXE.CoreFx.Base
 {
-
-
-	// ============================================================================
-	// ============================================================================
-	// ============================================================================
 	public abstract class LoggerBase
 	{
 		private LogLevel _logLevel;
-
 		private bool _enabled = true;
 		private bool _isDelayedLogging = false;
 		private List<string> _logLines;
-
 		private int _indentSize;
 		private string _indentString;
 		private int _indentLevel;
-
 		private bool _displayTimestamp;
 		private string _timestampFormat;
-
 		public const string SeparationLine = ":::::::::::::::::::::::::::::::::::::::";
 
-
-
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		public bool Enabled
 		{
 			get => _enabled;
 			set => _enabled = value;
 		}
 
-
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		public bool IsDelayedLogging
 		{
 			get => _isDelayedLogging;
@@ -59,32 +39,27 @@ namespace CXE.CoreFx.Base
 			}
 		}
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		public LogLevel LogLevel
 		{
 			get => _logLevel;
 			set => _logLevel = value;
 		}
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		public bool DisplayTimestamp
 		{
 			get => _displayTimestamp;
 			set => _displayTimestamp = value;
 		}
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		public string TimestampFormat
 		{
 			get => _timestampFormat;
 			set => _timestampFormat = value;
 		}
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		public int IndentSize
 		{
 			get => _indentSize;
-
 			set
 			{
 				_indentSize = value;
@@ -98,7 +73,6 @@ namespace CXE.CoreFx.Base
 			}
 		}
 
-		// ============================================================================
 		/// <summary>
 		/// Initiates a Logger that is logging to the Console.
 		/// </summary>
@@ -107,22 +81,16 @@ namespace CXE.CoreFx.Base
 			LogLevel logLevel = LogLevel.INFO)
 		{
 			_logLevel = logLevel;
-
 			_enabled = true;
 			_displayTimestamp = false;
 			_timestampFormat = "yyyy-MM-dd HH:mm:ss.fff";
-
 			_indentSize = 4;
 			_indentLevel = 0;
 			_indentString = string.Empty;
-
 			_logLines = new List<string>();
-
 			GenerateIndent();
 		}
 
-
-		// ============================================================================
 		private bool FormatMessage(
 			string message,
 			LogLevel logLevel,
@@ -161,17 +129,12 @@ namespace CXE.CoreFx.Base
 			return true;
 		}
 
-
-		// ============================================================================
 		/// <summary>
 		/// implement this function to write the line to be logged how you want it.
 		/// </summary>
 		/// <param name="line"></param>
 		protected abstract void WriteLogLine(string line);
 
-
-
-		// ============================================================================
 		public void Log(
 			string message,
 			LogLevel logLevel = LogLevel.INFO)
@@ -184,8 +147,6 @@ namespace CXE.CoreFx.Base
 			WriteLogLine(formattedMessage);
 		}
 
-
-		// ============================================================================
 		/// <summary>
 		/// Logs an empty line
 		/// </summary>
@@ -194,8 +155,6 @@ namespace CXE.CoreFx.Base
 			Log("");
 		}
 
-
-		// ============================================================================
 		public void Log(
 			string message_1,
 			string message_2,
@@ -205,8 +164,6 @@ namespace CXE.CoreFx.Base
 			Log(message_2, logLevel);
 		}
 
-
-		// ============================================================================
 		public void Log(
 			string message_1,
 			string message_2,
@@ -218,8 +175,6 @@ namespace CXE.CoreFx.Base
 			Log(message_3, logLevel);
 		}
 
-
-		// ============================================================================
 		public void Log(
 			string message_1,
 			string message_2,
@@ -233,8 +188,6 @@ namespace CXE.CoreFx.Base
 			Log(message_4, logLevel);
 		}
 
-
-		// ============================================================================
 		public void Log(
 			string message_1,
 			string message_2,
@@ -250,10 +203,6 @@ namespace CXE.CoreFx.Base
 			Log(message_5, logLevel);
 		}
 
-
-
-
-		// ============================================================================
 		public void PushDelayedLogs()
 		{
 			if (Enabled)
@@ -267,26 +216,21 @@ namespace CXE.CoreFx.Base
 			}
 		}
 
-		// ============================================================================
 		public void ClearDelayedLogs()
 		{
 			_logLines.Clear();
 		}
 
-
-		// ============================================================================
 		public void ResetIndent()
 		{
 			_indentLevel = 0;
 		}
 
-		// ============================================================================
 		public void IncreaseIndent()
 		{
 			_indentLevel++;
 		}
 
-		// ============================================================================
 		public void DecreaseIndent()
 		{
 			_indentLevel--;
@@ -297,7 +241,6 @@ namespace CXE.CoreFx.Base
 			}
 		}
 
-		// ============================================================================
 		private void GenerateIndent()
 		{
 			_indentString = "|";
@@ -308,8 +251,6 @@ namespace CXE.CoreFx.Base
 			}
 		}
 
-
-		// ============================================================================
 		public void EnterFunction(
 			[CallerMemberName] string functionName = "",
 			bool preventIndent = false)
@@ -325,8 +266,6 @@ namespace CXE.CoreFx.Base
 			}
 		}
 
-
-		// ============================================================================
 		public void EnterFunction(
 			string functionName,
 			string parameter,
@@ -347,8 +286,6 @@ namespace CXE.CoreFx.Base
 			}
 		}
 
-
-		// ============================================================================
 		public void ExitFunction(
 			string message = "")
 		{
@@ -359,13 +296,8 @@ namespace CXE.CoreFx.Base
 
 			DecreaseIndent();
 		}
-
 	}
 
-
-	// ============================================================================
-	// ============================================================================
-	// ============================================================================
 	public enum LogLevel
 	{
 		DEBUG = 0,
@@ -373,6 +305,4 @@ namespace CXE.CoreFx.Base
 		WARN = 2,
 		ERROR = 3
 	}
-
-
 }

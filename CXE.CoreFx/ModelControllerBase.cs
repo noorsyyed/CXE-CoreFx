@@ -18,9 +18,21 @@ namespace CXE.CoreFx.Base
 			Service = service ?? throw new ArgumentNullException(nameof(service), "Service cannot be null.");
 			Entity = entity ?? throw new ArgumentNullException(nameof(entity), "Entity cannot be null.");
 			Logger = logger ?? throw new ArgumentNullException(nameof(logger), "Logger cannot be null.");
+			PreImageEntity = preImageEntity;
+			PostImageEntity = postImageEntity;
 
 		}
 		protected virtual T Entity
+		{
+			get;
+			set;
+		}
+		protected virtual T PreImageEntity
+		{
+			get;
+			set;
+		}
+		protected virtual T PostImageEntity
 		{
 			get;
 			set;
@@ -124,8 +136,14 @@ namespace CXE.CoreFx.Base
 		{
 			ColumnSet columns = GetColumnSet(GetColumnNames());
 
-			T entity = (T) Service.Retrieve(TableLogicalName, Entity.Id, columns);
-			return entity;
+			var entity = Service.Retrieve(TableLogicalName, Entity.Id, columns);
+			if (entity == null)
+			{
+				return null;
+			}
+			T instance = new();
+			instance.LoadFromEntity(entity);
+			return instance;
 		}
 	}
 }

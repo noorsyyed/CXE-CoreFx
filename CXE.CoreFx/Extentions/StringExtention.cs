@@ -3,24 +3,11 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 
-
-// ============================================================================
-// ============================================================================
-// ============================================================================
 namespace CXE.CoreFx.Base.Extensions
 {
-
-
-	// ============================================================================
-	// ============================================================================
-	// ============================================================================
 	internal static class StringExtention
 	{
-
-
 		#region EXTENTIONS
-
-		// ============================================================================
 		public static string ReplaceDateTemplateInFileName(
 			this string fileName)
 		{
@@ -38,22 +25,18 @@ namespace CXE.CoreFx.Base.Extensions
 				onlyFileName;
 		}
 
-
-		// ============================================================================
 		public static bool HasValue(
 			this string input)
 		{
 			return !string.IsNullOrWhiteSpace(input);
 		}
 
-		// ============================================================================
 		public static bool IsEmpty(
 			this string input)
 		{
 			return string.IsNullOrWhiteSpace(input);
 		}
 
-		// ============================================================================
 		public static string Shorten(
 			this string input,
 			int newMaxLength)
@@ -67,7 +50,6 @@ namespace CXE.CoreFx.Base.Extensions
 			return input + "...";
 		}
 
-		// ============================================================================
 		public static string ExtendLength(
 			this string input,
 			int newLength,
@@ -81,19 +63,15 @@ namespace CXE.CoreFx.Base.Extensions
 			return input.PadRight(newLength, fillerChar);
 		}
 
-		// ============================================================================
 		public static bool HasNonLatinCharacters(
 			this string input)
 		{
 			return Regex.IsMatch(input, "[^a-zA-Z0-9^\\-\\/ &.(),]");
 		}
 
-
-		// ============================================================================
 		public static string RemoveHtml(
 			this string input)
 		{
-
 			var result = input;
 
 			result = RemoveComments(result);
@@ -105,8 +83,6 @@ namespace CXE.CoreFx.Base.Extensions
 			return result;
 		}
 
-
-		// ============================================================================
 		/// <summary>
 		/// Removes extra spaces in the given string, collapsing multiple spaces into one
 		/// and trimming leading/trailing whitespace.
@@ -121,12 +97,9 @@ namespace CXE.CoreFx.Base.Extensions
 				return string.Empty;
 			}
 
-			// Trim the ends, then collapse multiple internal spaces into one
 			return Regex.Replace(input.Trim(), "\\s+", " ");
 		}
 
-
-		// ============================================================================
 		/// <summary>
 		/// Removes all \n and \r characters from the string.
 		/// </summary>
@@ -135,24 +108,17 @@ namespace CXE.CoreFx.Base.Extensions
 		public static string RemoveLineBreaks(
 			this string input)
 		{
-
 			input = input.Replace("\r", "");
 			input = input.Replace("\n", "");
 
 			return input;
 		}
-
-
 		#endregion
 
 		#region Interal Helper Code
-
-
-		// ============================================================================
 		private static string RemoveComments(
 			string source)
 		{
-
 			return Regex.Replace(
 				source,
 				"<!--.*?-->",
@@ -160,8 +126,6 @@ namespace CXE.CoreFx.Base.Extensions
 				RegexOptions.Singleline);
 		}
 
-
-		// ============================================================================
 		private static string RemoveHtmlTags(
 			string source)
 		{
@@ -191,10 +155,6 @@ namespace CXE.CoreFx.Base.Extensions
 
 			return new string(array, 0, arrayIndex);
 		}
-
-
 		#endregion
-
-
 	}
 }

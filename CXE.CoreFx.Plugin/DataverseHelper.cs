@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 //using System.Activities;
 using System.Linq;
 using CXE.CoreFx.Base;
@@ -11,23 +10,10 @@ using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 
-
-// ============================================================================
-// ============================================================================
-// ============================================================================
 namespace CXE.CoreFx.Plugin
 {
-
-	// ============================================================================
-	// ============================================================================
-	// ============================================================================
 	public class DataverseHelper
 	{
-
-
-
-		// ============================================================================
-		[Obsolete]
 		public DataverseHelper(
 			IServiceProvider serviceProvider)
 		{
@@ -35,8 +21,8 @@ namespace CXE.CoreFx.Plugin
 				(ITracingService) serviceProvider.GetService(typeof(ITracingService));
 
 			Context =
-				(IPluginExecutionContext) serviceProvider.GetService(
-					typeof(IPluginExecutionContext));
+				(IPluginExecutionContext2) serviceProvider.GetService(
+					typeof(IPluginExecutionContext2));
 
 			IOrganizationServiceFactory serviceFactory =
 				(IOrganizationServiceFactory) serviceProvider.GetService(
@@ -55,10 +41,8 @@ namespace CXE.CoreFx.Plugin
 
 		}
 
-
 		#region Core-Dataverse-Objects
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// The tracing-service
 		/// </summary>
@@ -67,18 +51,15 @@ namespace CXE.CoreFx.Plugin
 			get;
 		}
 
-
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// The execution-context.
 		/// </summary>
-		public IPluginExecutionContext Context
+		public IPluginExecutionContext2 Context
 		{
 			get;
 		}
 
 		/*
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// The execution-context.
 		/// </summary>
@@ -91,24 +72,16 @@ namespace CXE.CoreFx.Plugin
 		}
 		*/
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// The service-object to connect with Dataverse.
 		/// </summary>
-		[Obsolete]
 		public virtual IOrganizationService ServiceClient => Service;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-		/// <summary>
-		/// Service is deprecated, please use ServiceClient instead.
-		/// </summary>
-		[Obsolete("Service is deprecated, please use ServiceClient instead.")]
 		public IOrganizationService Service
 		{
 			get;
 		}
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		// A tool for logging to Dataverse trace-logs.
 		public TraceLogger Logger
 		{
@@ -117,148 +90,113 @@ namespace CXE.CoreFx.Plugin
 
 		#endregion
 
-
 		#region Properties
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Checks if the message name is 'Create'.
 		/// </summary>
 		public bool IsCreate => Context.MessageName == MessageNames.Create;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Checks if the message name is 'Update'.
 		/// </summary>
 		public bool IsUpdate => Context.MessageName == MessageNames.Update;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Checks if the message name is 'Delete'.
 		/// </summary>
 		public bool IsDelete => Context.MessageName == MessageNames.Delete;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Checks if the message name is 'SetState'.
 		/// </summary>
 		public bool IsSetState => Context.MessageName == MessageNames.SetState;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Checks if the message name is 'SetState'.
 		/// </summary>
 		public bool IsAssign => Context.MessageName == MessageNames.Assign;
 
-
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Checks if the message name is 'Associate'.
 		/// </summary>
 		public bool IsAssociate => Context.MessageName == MessageNames.Associate;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Checks if the message name is 'Disassociate'.
 		/// </summary>
 		public bool IsDisassociate => Context.MessageName == MessageNames.Disassociate;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Checks if the stage is 'Pre-Validation'.
 		/// </summary>
 		public bool IsStagePreValidation => Context.Stage == Stages.PreValidation;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Checks if the stage is 'Pre-Operation'.
 		/// </summary>
 		public bool IsStagePreOperation => Context.Stage == Stages.PreOperation;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Checks if the stage is 'Core-Operation'.
 		/// </summary>
 		public bool IsStageCoreOperation => Context.Stage == Stages.CoreOperation;
 
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Checks if the stage is 'Post-Operation'.
 		/// </summary>
 		public bool IsStagePostOperation => Context.Stage == Stages.PostOperation;
 
-
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Checks if the context contains a Target with type Entity
 		/// </summary>
 		public bool HasTargetEntity => Context.InputParameters.Contains("Target") &&
-					Context.InputParameters["Target"] is Entity;
+				Context.InputParameters["Target"] is Entity;
 
-
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Checks if the context contains a Target with type EntityReference
 		/// </summary>
 		public bool HasTargetEntityReference => Context.InputParameters.Contains("Target") &&
-					Context.InputParameters["Target"] is EntityReference;
+				Context.InputParameters["Target"] is EntityReference;
 
-
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// The Taget from the execution-context. If there is no Taget of type Entity
 		/// this return null
 		/// </summary>
 		public Entity TargetEntity => HasTargetEntity ? (Entity) Context.InputParameters["Target"] : null;
 
-
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// The Taget from the execution-context. If there is no Taget of type EntityReference
 		/// this return null
 		/// </summary>
 		public EntityReference TargetEntityReference => HasTargetEntityReference ? (EntityReference) Context.InputParameters["Target"] : null;
 
-
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Checks if the context contains a Pre-Image.
 		/// </summary>
 		public bool HasPreImage => Context.PreEntityImages.Count > 0;
 
-
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Returns the first Pre-Image that is foiund. If there is no Pre-Image,
 		/// this return null
 		/// </summary>
 		public Entity FirstPreImage => HasPreImage ? Context.PreEntityImages.First().Value : null;
 
-
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Checks if the context contains a Post-Image.
 		/// </summary>
 		public bool HasPostImage => Context.PostEntityImages.Count > 0;
 
-
-
-		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		/// <summary>
 		/// Returns the first Post-Image that is foiund. If there is no Post-Image,
 		/// this return null
 		/// </summary>
 		public Entity FirstPostImage => HasPostImage ? Context.PostEntityImages.First().Value : null;
 
-
-
-
 		#endregion
-
 
 		#region Public-Functions
 
-		// ============================================================================
 		/// <summary>
 		/// Handles the re-sorting of child records with an integer sorting-index 
 		/// field. The lowest possible sorting index needs to be 1.
@@ -370,9 +308,6 @@ namespace CXE.CoreFx.Plugin
 			Logger.ExitFunction();
 		}
 
-
-
-		// ============================================================================
 		/// <summary>
 		/// Retrieves the logical name of the entity with the given logical name
 		/// </summary>
@@ -381,7 +316,6 @@ namespace CXE.CoreFx.Plugin
 		public string GetPrimaryFieldName(
 			string entityLogicalName)
 		{
-
 			RetrieveEntityRequest retrievesEntityRequest = new()
 			{
 				EntityFilters = EntityFilters.Entity,
@@ -397,8 +331,6 @@ namespace CXE.CoreFx.Plugin
 				retrieveEntityResponse.EntityMetadata.PrimaryNameAttribute;
 		}
 
-
-		// ============================================================================
 		/// <summary>
 		/// Retrieves the value of the entities primary field.
 		/// </summary>
@@ -426,9 +358,6 @@ namespace CXE.CoreFx.Plugin
 			return record.GetAttributeString(primaryFieldName);
 		}
 
-
-
-		// ============================================================================
 		/// <summary>
 		/// Retrieves the value of the entities primary field.
 		/// </summary>
@@ -451,83 +380,6 @@ namespace CXE.CoreFx.Plugin
 			return loadedRecord.GetAttributeString(primaryFieldName);
 		}
 
-
-		// ============================================================================
-		//public DateTime ConvertDateTimeToUserLocalTime(
-		//	DateTime inputTime,
-		//	TimeZoneInfo timeZoneInfo = null)
-
-		//{
-		//	timeZoneInfo ??=
-		//			GetCurrentUsersTimeZoneInfo();
-
-		//	return TimeZoneInfo.ConvertTimeFromUtc(inputTime, timeZoneInfo);
-		//}
-
-
-
-		// ============================================================================
-		//public TimeZoneInfo GetCurrentUsersTimeZoneInfo()
-
-		//{
-		//	// ----------------------------------
-		//	QueryExpression query =
-		//		new(
-		//			SystemUserSetting.LogicalName)
-		//		{
-		//			ColumnSet =
-		//			new ColumnSet(
-		//				SystemUserSetting.LocaleId,
-		//				SystemUserSetting.TimeZoneCode)
-		//		};
-
-		//	query.Criteria.AddCondition(
-		//			new ConditionExpression(
-		//				SystemUserSetting.SystemUser,
-		//				ConditionOperator.EqualUserId));
-
-		//	EntityCollection queryResponse =
-		//		ServiceClient.RetrieveMultiple(query);
-
-		//	if (queryResponse.Entities.Count < 1)
-		//	{
-		//		return null;
-		//	}
-
-		//	Entity firstRecord =
-		//		queryResponse.Entities.First();
-
-		//	int timeZoneCode =
-		//		firstRecord.GetAttributeValue<int>(SystemUserSetting.TimeZoneCode);
-
-		//	// ----------------------------------
-		//	query =
-		//		new QueryExpression(
-		//			TimeZoneDefinition.LogicalName)
-		//		{
-		//			ColumnSet =
-		//			new ColumnSet(
-		//				TimeZoneDefinition.StandardName)
-		//		};
-
-		//	query.Criteria.AddCondition(
-		//		TimeZoneDefinition.TimeZoneCode,
-		//		ConditionOperator.Equal,
-		//		timeZoneCode);
-
-		//	queryResponse =
-		//		ServiceClient.RetrieveMultiple(query);
-
-		//	string timeZoneStandardName =
-		//		queryResponse.Entities.First().GetAttributeValue<string>(
-		//			TimeZoneDefinition.StandardName);
-
-		//	return TimeZoneInfo.FindSystemTimeZoneById(
-		//		timeZoneStandardName);
-		//}
-
-
-		// ============================================================================
 		public void LogAllInputParameters()
 		{
 			Logger.Log("- - - - - - - - - - -");
@@ -556,8 +408,6 @@ namespace CXE.CoreFx.Plugin
 
 		}
 
-
-		// ============================================================================
 		public void LogAllOutputParameters()
 		{
 			Logger.Log("- - - - - - - - - - - - -");
@@ -586,8 +436,6 @@ namespace CXE.CoreFx.Plugin
 
 		}
 
-
-		// ============================================================================
 		/// <summary>
 		/// Logs att the attributes of the Target Entity if there is one.
 		/// </summary>
@@ -599,123 +447,10 @@ namespace CXE.CoreFx.Plugin
 			}
 		}
 
-
-		// ============================================================================
-		/// <summary>
-		/// Retrieves the value of an environment variable of type string.
-		/// </summary>
-		/// <param name="variableSchemaName">The schema name of the environment-variabel</param>
-		/// <param name="doLogging">Optional parameter to enable logging. Default is false</param>
-		/// <returns></returns>
-		//public string GetEnvironmentVariableValue(
-		//	string variableSchemaName,
-		//	bool doLogging = false)
-		//{
-		//	if (doLogging)
-		//	{
-		//		Logger.EnterFunction("GetEnvironmentVariableValue", variableSchemaName);
-		//	}
-
-		//	QueryExpression query =
-		//		new(
-		//			EnvironmentVariableDefinition.LogicalName)
-		//		{
-		//			ColumnSet =
-		//			new ColumnSet(
-		//				EnvironmentVariableDefinition.DefaultValue)
-		//		};
-
-		//	query.Criteria.AddCondition(
-		//		new ConditionExpression(
-		//			EnvironmentVariableDefinition.SchemaName,
-		//			ConditionOperator.Equal,
-		//			variableSchemaName));
-
-		//	query.Criteria.AddCondition(
-		//		new ConditionExpression(
-		//			EnvironmentVariableDefinition.StateCode,
-		//			ConditionOperator.Equal,
-		//			0)); // active
-
-		//	EntityCollection result =
-		//		Service.RetrieveMultiple(query);
-
-		//	if (result.Entities.Count > 0)
-		//	{
-		//		if (doLogging)
-		//		{
-		//			Logger.ExitFunction("An environment variable was found.");
-		//		}
-
-		//		Entity record = result.Entities[0];
-
-		//		return
-		//			record.GetAttributeValue<string>(
-		//				EnvironmentVariableDefinition.DefaultValue);
-
-		//	}
-
-		//	if (doLogging)
-		//	{
-		//		Logger.EnterFunction(
-		//		   "No environment variables with the schema name '" + variableSchemaName +
-		//			"' were found!");
-		//	}
-		//	return null;
-		//}
-
-
-		// ============================================================================
-		/*protected string GetConfigurationKeyValue(
-			string keyName)
-		{
-
-			QueryExpression query =
-				new(
-					ConfigurationKey.LogicalName)
-				{
-					ColumnSet =
-					new ColumnSet(
-						ConfigurationKey.ValueString),
-
-					Criteria =
-					new FilterExpression(
-						LogicalOperator.And)
-				};
-
-			query.Criteria.AddCondition(
-				new ConditionExpression(
-					ConfigurationKey.Key,
-					ConditionOperator.Equal,
-					keyName));
-
-			EntityCollection resultCollection =
-				Service.RetrieveMultiple(
-					query);
-
-			if (resultCollection.Entities.Count == 1)
-			{
-				Entity configKey =
-					resultCollection.Entities[0];
-
-				if (configKey.Contains(ConfigurationKey.ValueString))
-				{
-					return (string) configKey[ConfigurationKey.ValueString];
-				}
-			}
-
-			return string.Empty;
-		}*/
-
-
-
 		#endregion
-
 
 		#region Private-Functions
 
-
-		// ============================================================================
 		private EntityCollection LoadSortableRecords(
 			Entity sortable,
 			string parentRecordLookupFieldName,
@@ -750,10 +485,6 @@ namespace CXE.CoreFx.Plugin
 			return ServiceClient.RetrieveMultiple(query);
 		}
 
-
 		#endregion
-
-
-
 	}
 }

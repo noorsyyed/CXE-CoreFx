@@ -19,8 +19,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extentions\GuidExtention.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extentions\ObjectExtention.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extentions\StringExtention.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IDataverseContainer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ModelControllerBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IDataverseContainer.cs" />  
+    <Compile Include="$(MSBuildThisFileDirectory)ModelServiceBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataverseColumnAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataverseTableAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LoggerBase.cs" />

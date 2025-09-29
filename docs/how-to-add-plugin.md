@@ -20,16 +20,16 @@ public class CustomerAssetModel
 }
 ```
 
-## 2. Create a Controller Class
+## 2. Create a Service Class
 
-- Location: Plugins/<CompanyName>.D365.Dataverse.Plugins/Controllers/
-- Inherit from ModelControllerBase<TModel>.
+- Location: Plugins/<CompanyName>.D365.Dataverse.Plugins/Services/
+- Inherit from ModelServiceBase<TModel>.
 ```
 Example:
 
-public class CustomerAssetController : ModelControllerBase<CustomerAssetModel>
+public class CustomerAssetService : ModelServiceBase<CustomerAssetModel>
 {
-    public CustomerAssetController(IOrganizationService service, CustomerAssetModel entity, LoggerBase logger)
+    public CustomerAssetService(IOrganizationService service, CustomerAssetModel entity, LoggerBase logger)
         : base(service, entity, logger)
     {
     }
@@ -60,12 +60,12 @@ Example:
 )]
 public class PluginAssetToDeliveryWorkOrder : PluginBase
 {
-    private CustomerAssetController _customerAssetController;
+    private CustomerAssetService _customerAssetService;
 
-    public override void OnCreatePostOperation() => _customerAssetController.CreateWorkOrder(WorkOrderType_WorkOrderTypeEnum.Delivery);
+    public override void OnCreatePostOperation() => _customerAssetService.CreateWorkOrder(WorkOrderType_WorkOrderTypeEnum.Delivery);
 
-    public override void InitializeController() =>
-        _customerAssetController = new CustomerAssetController(
+    public override void InitializeService() =>
+        _customerAssetService = new CustomerAssetService(
             this.ServiceClient,
             new CustomerAssetModel
             {

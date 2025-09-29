@@ -10,13 +10,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ConsoleLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataverseContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EntityBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\Enums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\Lifetime.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extentions\EntityExtention.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extentions\EntityReferenceExtention.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extentions\GuidExtention.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extentions\ObjectExtention.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extentions\StringExtention.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IDataverseContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModelControllerBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataverseColumnAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataverseTableAttribute.cs" />
@@ -44,6 +47,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\TeamMembershipModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\TeamModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\TimeZoneDefinitionModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Registration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringHelper.cs" />
   </ItemGroup>
 </Project>

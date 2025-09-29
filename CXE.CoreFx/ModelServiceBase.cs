@@ -10,9 +10,9 @@ using Microsoft.Xrm.Sdk.Query;
 
 namespace CXE.CoreFx.Base
 {
-	public class ModelControllerBase<T> : IEntityDataSourceRetrieverService where T : EntityBase, new()
+	public class ModelServiceBase<T> : IEntityDataSourceRetrieverService where T : EntityBase, new()
 	{
-		public ModelControllerBase(IOrganizationService service, T entity, LoggerBase logger)
+		public ModelServiceBase(IOrganizationService service, T entity, LoggerBase logger)
 		{
 			EntityMetadata = null;
 			Service = service ?? throw new ArgumentNullException(nameof(service), "Service cannot be null.");

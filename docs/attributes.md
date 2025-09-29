@@ -20,4 +20,4 @@ public class CustomerAssetModel
 ## Notes
 
 - Ensure logical names match exactly (case-insensitive but must be correct strings).
-- Keep models focused on shape and mapping; business logic belongs in controllers.
+- Keep models focused on shape and mapping; business logic belongs in services.
